@@ -1,2 +1,33 @@
 # browser-analytics-capture-js
 A tiny (4.6kb gzipped &amp; minified) JS library to capture analytics in the browser and send them to a server
+
+## What analytics does it capture?
+### Engagement Metrics
+- Active time spent by the user on a page
+- Maximum scroll depth by the user on the page
+
+### Unique identification and device metrics
+- User UUID (randomly generated)
+- Session ID (randomly generated)
+- URL Path
+- Screen Resolution
+- Whether or not the user is on mobile
+
+### Long-term usage metrics
+- Lifetime number of pageviews
+- Lifetime number of session
+- Number of hits per session
+- Whether the user has been active on the site recently
+
+### Referrer details
+
+### Any other metrics you want to capture
+
+## Usage
+```
+<script src="/js/ingest.js"></script>
+<script>document.addEventListener("DOMContentLoaded", fsdIngest('loki_embed'));</script>
+```
+
+## Comptability
+Works with all browsers that support [ES6](https://caniuse.com/?search=es6)
