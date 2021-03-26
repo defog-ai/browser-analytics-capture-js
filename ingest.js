@@ -1,7 +1,7 @@
 const generateUuid = function() {
   /**
   * Returns a UUID, using the Math function
-  **/
+  */
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
@@ -10,18 +10,18 @@ const generateUuid = function() {
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 };
 
-const setSessionCookie = function(name, value) {
+const setSessionCookie = function(key, value) {
   /**
   * Sets a cookie that expires at the end of a session (no expiry date)
-  **/
-  document.cookie = name + "=" + value + ";";
+  */
+  document.cookie = key + "=" + value + ";";
 }
 
-const getSessionCookie = function(name) {
+const getSessionCookie = function(key) {
   /**
   * Returns the value of cookie if it exists. Returns null if it does not
-  **/
-  const cname = name + "=";
+  */
+  const cname = key + "=";
   const cookies = document.cookie.split(';');
   for(let i = 0; i < cookies.length; i++) {
     let c = cookies[i];
@@ -40,21 +40,21 @@ const getSessionCookie = function(name) {
   return null;
 }
 
-const setStorage = function(name, value) {
+const setStorage = function(key, value) {
   /**
   * Sets a value in local storage
-  **/
-  localStorage.setItem(name, value);
+  */
+  localStorage.setItem(key, value);
 }
 
-const getStorage = function(name) {
+const getStorage = function(key) {
   /**
   * Returns a value from local storage if it exists, and null if it does not
-  **/
-  return localStorage.getItem(name);
+  */
+  return localStorage.getItem(key);
 }
 
-//The function below measures the active time a user had spent on a page. It is from Jason Zissman's TimeMe library - https://github.com/jasonzissman/TimeMe.js
+//The object below measures the active time a user had spent on a page. It is from Jason Zissman's TimeMe library - https://github.com/jasonzissman/TimeMe.js. If you're reading this code, ignore this function and skip straight to the subsequent sections
 
 /*Copyright (c) 2020 Jason Zissman
 Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -488,208 +488,248 @@ TimeMe.initialize({
 const checkMobile = function(){
   /**
    * Detects if a user if using a mobile device, based on the navigator useragent and vendor
-  **/
+  */
   let check = false;
   (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))) check = true;})(navigator.userAgent||navigator.vendor||window.opera);
   return check;
 }
 
-function loki_log_data(clientId) {
-  class FSDIngestor {
-    constructor(clientId) {
-      this.clientId = clientId;
-      this.urlPath = window.location.pathname;
-      this.pageId = generateUuid();
-      this.isMobile = checkMobile();
-      this.resolution = String(parseInt(window.screen.width * window.devicePixelRatio)) + "x" + String(parseInt(window.screen.height * window.devicePixelRatio));
-      this.uuid = null;
-      this.sessionId = null;
-      this.referrer = null;
-      this.referrerHost = null;
-      this.sessionReferrer = null;
-      this.firstEverSession = null;
-      this.firstEverPageview = null;
-      this.numLifetimePageviews = null;
-      this.numLifetimeSessions = null;
-      this.sessionHitNum = null;
-      this.activeLast24Hrs = null;
-      this.activeLast7Days = null;
-      this.timeSpent = null; //active time spent in seconds
-      this.maxDepth = null; //maximum depth (in vertical page %) that the user scrolled to
+class FSDIngestor {
+  /**
+   * 
+   * @param {*} clientId: The clientId which the data is associated with
+   */
+
+  constructor(clientId) {
+    this.clientId = clientId; //useful if you are using this script for multiple domains
+    this.urlPath = window.location.pathname;
+    this.pageId = generateUuid();
+    this.isMobile = checkMobile();
+    this.resolution = String(parseInt(window.screen.width * window.devicePixelRatio)) + "x" + String(parseInt(window.screen.height * window.devicePixelRatio));
+    this.uuid = null;
+    this.sessionId = null;
+    this.referrer = null;
+    this.referrerHost = null;
+    this.sessionReferrer = null;
+    this.firstEverSession = null;
+    this.firstEverPageview = null;
+    this.numLifetimePageviews = null;
+    this.numLifetimeSessions = null;
+    this.sessionHitNum = null;
+    this.activeLast24Hrs = null;
+    this.activeLast7Days = null;
+    this.timeSpent = null; //active time spent in seconds
+    this.maxDepth = null; //maximum depth (in vertical page %) that the user scrolled to
+  }
+
+  setUserSessionId() {
+    /**
+     * sets a unique UUID for the user, as well as for the session
+     */
+    let uuid = getStorage("fsd_uuid_" + this.clientId);
+    if (uuid == null) {
+      uuid = generateUuid();
+      setStorage("fsd_uuid_" + this.clientId, uuid);
     }
-  
-    setUserSessionId() {
-      let uuid = getStorage("fsd_uuid_" + this.clientId);
-      if (uuid == null) {
-        uuid = generateUuid();
-        setStorage("fsd_uuid_" + this.clientId, uuid);
-      }
-      this.uuid = uuid;
-  
-      let sessionId = getSessionCookie("fsd_session_id_" + this.clientId);
-      if (sessionId == null) {
-        sessionId = generateUuid();
-        setSessionCookie("fsd_session_id_" + this.clientId, sessionId);
-      }
-      this.sessionId = sessionId;
+    this.uuid = uuid;
+
+    let sessionId = getSessionCookie("fsd_session_id_" + this.clientId);
+    if (sessionId == null) {
+      sessionId = generateUuid();
+      setSessionCookie("fsd_session_id_" + this.clientId, sessionId);
     }
-  
-    setReferrerDetails() {
-      let referrer = document.referrer;
-      let referrerHost;
-      if (referrer != ""){
-        referrerHost = referrer.toString().replace(/^(.*\/\/[^\/?#]*).*$/,"$1").split('//')[1];
-        if ((referrerHost.indexOf('.facebook.') !== -1) || (referrerHost.indexOf('.fb.') !== -1) || (referrerHost.indexOf('facebook.') === 0) || (referrerHost.indexOf('fb.') === 0)){
-          referrerHost = 'Facebook';
-        }
-        else if ((referrerHost.indexOf("mail.google") !== -1) || (referrerHost.indexOf("gmail.com") !== -1)) {
-          referrerHost = "Gmail"
-        }
-        else if ((referrerHost.indexOf('.google.') !== -1) || (referrerHost.indexOf('.googleusercontent.') !== -1) || (referrerHost.indexOf('google.') === 0)) {
-          referrerHost = 'Google';
-        }
-        else if (referrerHost.indexOf('reddit.com') !== -1){
-          referrerHost = 'Reddit';
-        }
-        else if (referrerHost.indexOf('t.co') === 0){
-          referrerHost = 'Twitter';
-        }
-        else if ((referrerHost.indexOf('lnkd.in') === 0) || (referrerHost.indexOf('linkedin.') === 0)){
-          referrerHost = 'LinkedIn';
-        }
+    this.sessionId = sessionId;
+  }
+
+  setReferrerDetails() {
+    /**
+     * sets referrer details – both the URL that a user came from, as well as a human readable version for more popular referrers. Like "Twitter" for "t.co" etc
+     * Also sets a session referrer – the referrer responsible for beginning the user's session
+     */
+    let referrer = document.referrer;
+    let referrerHost;
+    if (referrer != ""){
+      referrerHost = referrer.toString().replace(/^(.*\/\/[^\/?#]*).*$/,"$1").split('//')[1];
+      if ((referrerHost.indexOf('.facebook.') !== -1) || (referrerHost.indexOf('.fb.') !== -1) || (referrerHost.indexOf('facebook.') === 0) || (referrerHost.indexOf('fb.') === 0)){
+        referrerHost = 'Facebook';
       }
-      else {
-        referrerHost = "direct";
-        referrer = "direct";
+      else if ((referrerHost.indexOf("mail.google") !== -1) || (referrerHost.indexOf("gmail.com") !== -1)) {
+        referrerHost = "Gmail"
       }
-      this.referrer = referrer;
-      this.referrerHost = referrerHost;
-  
-      let sessionReferrer = getSessionCookie("fsd_session_referrer_" + this.clientId);
-      if (sessionReferrer == null) {
-        sessionReferrer = referrerHost;
-        setSessionCookie("fsd_session_referrer_" + this.clientId, sessionReferrer);      
+      else if ((referrerHost.indexOf('.google.') !== -1) || (referrerHost.indexOf('.googleusercontent.') !== -1) || (referrerHost.indexOf('google.') === 0)) {
+        referrerHost = 'Google';
       }
-      this.sessionReferrer = sessionReferrer;
+      else if (referrerHost.indexOf('reddit.com') !== -1){
+        referrerHost = 'Reddit';
+      }
+      else if (referrerHost.indexOf('t.co') === 0){
+        referrerHost = 'Twitter';
+      }
+      else if ((referrerHost.indexOf('lnkd.in') === 0) || (referrerHost.indexOf('linkedin.') === 0)){
+        referrerHost = 'LinkedIn';
+      }
     }
-  
-    setLongTermUsageMetrics() {
-      let numLifetimePageviews = getStorage("fsd_lifetime_pageviews_" + this.clientId);
-      let numLifetimeSessions = getStorage("fsd_lifetime_sessions_" + this.clientId);
-      let sessionHitNum = getSessionCookie("fsd_session_hit_num_" + this.clientId);
-  
-      if (numLifetimePageviews == null) {
-        numLifetimePageviews = 1;
-        this.firstEverPageview = true;
-      } else {
-        numLifetimePageviews = parseInt(numLifetimePageviews) + 1;
-        this.firstEverPageview = false;
-      }
-      setStorage("fsd_lifetime_pageviews_" + this.clientId, numLifetimePageviews);
-      this.numLifetimePageviews = numLifetimePageviews;
-  
-      if (numLifetimeSessions == null) {
-        numLifetimeSessions = 1;
+    else {
+      referrerHost = "direct";
+      referrer = "direct";
+    }
+    this.referrer = referrer;
+    this.referrerHost = referrerHost;
+
+    let sessionReferrer = getSessionCookie("fsd_session_referrer_" + this.clientId);
+    if (sessionReferrer == null) {
+      sessionReferrer = referrerHost;
+      setSessionCookie("fsd_session_referrer_" + this.clientId, sessionReferrer);      
+    }
+    this.sessionReferrer = sessionReferrer;
+  }
+
+  setLongTermUsageMetrics() {
+    /**
+     * Updates long term usage metrics, like lifetime pageviews, lifetime sessions, number of pages in a given session etc
+     * Also computes if this is a user's first pageviews or session
+     * Lastly, computes if the user has been active in the last 24 hours or the last 7 days
+     */
+    let numLifetimePageviews = getStorage("fsd_lifetime_pageviews_" + this.clientId);
+    let numLifetimeSessions = getStorage("fsd_lifetime_sessions_" + this.clientId);
+    let sessionHitNum = getSessionCookie("fsd_session_hit_num_" + this.clientId);
+
+    if (numLifetimePageviews == null) {
+      numLifetimePageviews = 1;
+      this.firstEverPageview = true;
+    } else {
+      numLifetimePageviews = parseInt(numLifetimePageviews) + 1;
+      this.firstEverPageview = false;
+    }
+    setStorage("fsd_lifetime_pageviews_" + this.clientId, numLifetimePageviews);
+    this.numLifetimePageviews = numLifetimePageviews;
+
+    if (numLifetimeSessions == null) {
+      numLifetimeSessions = 0; //initialized to zero since it'll be added by 1 when checking for session hit number
+      this.firstEverSession = true;
+    } else {
+      if (parseInt(numLifetimeSessions) === 0) {
         this.firstEverSession = true;
       } else {
-        if (parseInt(numLifetimeSessions) === 1) {
-          this.firstEverSession = true;
-        } else {
-          this.firstEverSession = false;
-        }
-        if (sessionHitNum == null) {
-          numLifetimeSessions = parseInt(numLifetimeSessions) + 1;
-          sessionHitNum = 1;
-        } else {
-          sessionHitNum = parseInt(sessionHitNum) + 1;
-        }
+        this.firstEverSession = false;
       }
-      
-      this.numLifetimeSessions = numLifetimeSessions;
-      this.sessionHitNum = sessionHitNum;
-      
-      setStorage("fsd_lifetime_sessions_" + this.clientId, numLifetimeSessions);
-      setSessionCookie("fsd_session_hit_num_" + this.clientId, sessionHitNum);
-  
-      let lastActiveTime = getStorage("fsd_last_active_at_" + this.clientId);
-  
-      if (lastActiveTime == null) {
-        this.activeLast24Hrs = false;
-        this.activeLast7Days = false;
+      if (sessionHitNum == null) {
+        numLifetimeSessions = parseInt(numLifetimeSessions) + 1;
+        sessionHitNum = 1;
       } else {
-        this.activeLast24Hrs = (new Date() - Date.parse(lastActiveTime)) < 24*3600*1000;
-        this.activeLast7Days = (new Date() - Date.parse(lastActiveTime)) < 7*24*3600*1000;
-      }
-      setStorage("fst_last_active_time_" + this.clientId, (new Date).toISOString());
-    }
-  
-    updateEngagementMetrics() {
-      let timeSpent = TimeMe.getTimeOnCurrentPageInSeconds();
-      if (timeSpent < 0) {
-        this.timeSpent = 0;
-      } else if (timeSpent > 3600) {
-        this.timeSpent = 3600;
-      } else {
-        this.timeSpent = timeSpent;
-      }
-      
-      let curDepth = (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0)/parseInt(document.body.clientHeight);
-      if (curDepth >= this.maxDepth) {
-        this.maxDepth = curDepth;
+        sessionHitNum = parseInt(sessionHitNum) + 1;
       }
     }
-  
-    sendDataToServer(serverURL = "YOUR_URL") {
-      const payload = JSON.stringify({
-        clientId: this.clientId,
-        urlPath: this.urlPath,
-        pageId: this.pageId,
-        isMobile: this.isMobile,
-        resolution: this.resolution,
-        uuid: this.uuid,
-        sessionId: this.sessionId,
-        referrer: this.referrer,
-        referrerHost: this.referrerHost,
-        sessionReferrer: this.sessionReferrer,
-        firstEverSession: this.firstEverSession,
-        firstEverPageview: this.firstEverPageview,
-        numLifetimePageviews: this.numLifetimePageviews,
-        numLifetimeSessions: this.numLifetimeSessions,
-        sessionHitNum: this.sessionHitNum,
-        activeLast24Hrs: this.activeLast24Hrs,
-        activeLast7Days: this.activeLast7Days,
-        timeSpent: this.timeSpent,
-        maxDepth: this.maxDepth
-      });
-      
-      console.log(payload);
-      if("sendBeacon" in navigator){
-        navigator.sendBeacon(serverURL, payload);
-      } else {
-        var xmlhttp=new XMLHttpRequest();
-        xmlhttp.open("POST", serverURL, true);
-        xmlhttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-        xmlhttp.send(payload);
-      }
+    
+    this.numLifetimeSessions = numLifetimeSessions;
+    this.sessionHitNum = sessionHitNum;
+    
+    setStorage("fsd_lifetime_sessions_" + this.clientId, numLifetimeSessions);
+    setSessionCookie("fsd_session_hit_num_" + this.clientId, sessionHitNum);
+
+    let lastActiveTime = getStorage("fsd_last_active_time_" + this.clientId);
+
+    if (lastActiveTime == null) {
+      this.activeLast24Hrs = false;
+      this.activeLast7Days = false;
+    } else {
+      this.activeLast24Hrs = (new Date() - Date.parse(lastActiveTime)) < 24*3600*1000;
+      this.activeLast7Days = (new Date() - Date.parse(lastActiveTime)) < 7*24*3600*1000;
+    }
+    setStorage("fst_last_active_time_" + this.clientId, (new Date).toISOString());
+  }
+
+  updateEngagementMetrics() {
+    /**
+     * Updates engagement metrics – active time spent and the maximum depth that a user has scrolled to on the page
+     */
+    let timeSpent = TimeMe.getTimeOnCurrentPageInSeconds();
+    if (timeSpent < 0) {
+      this.timeSpent = 0;
+    } else if (timeSpent > 3600) {
+      this.timeSpent = 3600;
+    } else {
+      this.timeSpent = timeSpent;
+    }
+    
+    let curDepth = (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0)/parseInt(document.body.clientHeight);
+    if (curDepth >= this.maxDepth) {
+      this.maxDepth = curDepth;
     }
   }
 
+  sendDataToServer(serverURL = "YOUR_URL") {
+    /**
+     * @param serverURL: The url to send data to
+     */
+    const payload = JSON.stringify({
+      clientId: this.clientId,
+      urlPath: this.urlPath,
+      pageId: this.pageId,
+      isMobile: this.isMobile,
+      resolution: this.resolution,
+      uuid: this.uuid,
+      sessionId: this.sessionId,
+      referrer: this.referrer,
+      referrerHost: this.referrerHost,
+      sessionReferrer: this.sessionReferrer,
+      firstEverSession: this.firstEverSession,
+      firstEverPageview: this.firstEverPageview,
+      numLifetimePageviews: this.numLifetimePageviews,
+      numLifetimeSessions: this.numLifetimeSessions,
+      sessionHitNum: this.sessionHitNum,
+      activeLast24Hrs: this.activeLast24Hrs,
+      activeLast7Days: this.activeLast7Days,
+      timeSpent: this.timeSpent,
+      maxDepth: this.maxDepth
+    });
+    
+    if("sendBeacon" in navigator){
+      navigator.sendBeacon(serverURL, payload);
+    } else {
+      var xmlhttp=new XMLHttpRequest();
+      xmlhttp.open("POST", serverURL, true);
+      xmlhttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+      xmlhttp.send(payload);
+    }
+
+    console.log(payload);
+  }
+}
+
+function fsdIngest(clientId) {
+  /**
+   * Logs user data and sends it to a server
+  */
+
+  // First, initialize the ingestor
   const ingestor = new FSDIngestor(clientId);
+  
+  // then, set the user and session IDs
   ingestor.setUserSessionId();
+
+  // then, set the referrer details
   ingestor.setReferrerDetails();
+
+  // then, calculate usage metrics
   ingestor.setLongTermUsageMetrics();
+  
+  // send data to the server at first – just to make sure we don't lose data
   ingestor.sendDataToServer();
   
+  // update engagement metrics every second. any more, and it'll impact performance
   window.setInterval(function() {
     ingestor.updateEngagementMetrics();
-  }, 1000); //update engagement metrics every second
+  }, 1000);
 
+  // any time there is a visibility change, send data to the server
   document.addEventListener('visibilitychange', function() {
     if (document.visibilityState === 'hidden') {
       ingestor.sendDataToServer();
     }
   });
 
+  // Safari doesn't always play nice with visbility change. So adding another alternative here
   window.addEventListener("pagehide", function() {
     ingestor.sendDataToServer();
   });
