@@ -1,5 +1,5 @@
 # browser-analytics-capture-js
-A tiny (4.6kb gzipped &amp; minified) JS library to capture analytics in the browser and send them to a server
+A tiny (4.6kb gzipped &amp; minified) JS library to capture analytics in the browser and send them to a server. An example of using Cloudflare Workers for processing this data and adding it to BigQuery has also been open-sourced [here](https://github.com/Full-Stack-Data/cloud-workers-bigquery-ingest).
 
 ## What analytics does it capture?
 ### Engagement Metrics
