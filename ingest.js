@@ -494,6 +494,15 @@ const checkMobile = function(){
   return check;
 }
 
+const getQueryParamValue = function(paramName) {
+  /**
+   * Returns the value of a query parameter, if it exists
+   * Returns null otherwise
+   */
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(paramName);
+}
+
 class FSDIngestor {
   /**
    * 
@@ -520,6 +529,10 @@ class FSDIngestor {
     this.activeLast7Days = null;
     this.timeSpent = null; //active time spent in seconds
     this.maxDepth = null; //maximum depth (in vertical page %) that the user scrolled to
+    this.events = {}; //key-value object of event names and values
+    this.source = getQueryParamValue("utm_source"); //equivalent of utm_source -- useful for measuring impact of a Call-to-Action or inline link
+    this.campaign = getQueryParamValue("utm_campaign"); //equivalent of utm_campaign -- useful for measuring impact of a promotional campaign
+    this.medium = getQueryParamValue("utm_medium"); //equivalent of utm_medium -- useful for understanding if users came from email, social media, or somewhere else
   }
 
   setUserSessionId() {
@@ -544,7 +557,7 @@ class FSDIngestor {
   setReferrerDetails() {
     /**
      * sets referrer details – both the URL that a user came from, as well as a human readable version for more popular referrers. Like "Twitter" for "t.co" etc
-     * Also sets a session referrer – the referrer responsible for beginning the user's session
+     * Also sets a session referrer – the referrer responsible for beginning the user's session
      */
     let referrer = document.referrer;
     let referrerHost;
@@ -695,7 +708,13 @@ class FSDIngestor {
 
     console.log(payload);
   }
+
+  updateEvent(eventName, eventValue) {
+    this.events[eventName] = eventValue;
+  }
 }
+
+let ingestor;
 
 function fsdIngest(clientId) {
   /**
@@ -703,7 +722,7 @@ function fsdIngest(clientId) {
   */
 
   // First, initialize the ingestor
-  const ingestor = new FSDIngestor(clientId);
+  ingestor = new FSDIngestor(clientId);
   
   // then, set the user and session IDs
   ingestor.setUserSessionId();
@@ -714,7 +733,7 @@ function fsdIngest(clientId) {
   // then, calculate usage metrics
   ingestor.setLongTermUsageMetrics();
   
-  // send data to the server at first – just to make sure we don't lose data
+  // send data to the server at first – just to make sure we don't lose data
   ingestor.sendDataToServer();
   
   // update engagement metrics every second. any more, and it'll impact performance
@@ -733,4 +752,11 @@ function fsdIngest(clientId) {
   window.addEventListener("pagehide", function() {
     ingestor.sendDataToServer();
   });
+}
+
+function fsdAddEvent(eventName, eventValue) {
+  /**
+   * adds the name and value of an event
+   */
+  ingestor.updateEvent(eventName, eventValue);
 }
