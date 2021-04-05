@@ -1,6 +1,20 @@
 # browser-analytics-capture-js
 A tiny (4.6kb gzipped &amp; minified) JS library to capture analytics in the browser and send them to a server. An example of using Cloudflare Workers for processing this data and adding it to BigQuery has also been open-sourced [here](https://github.com/Full-Stack-Data/cloud-workers-bigquery-ingest).
 
+## Usage
+### For logging pageviews and engagement metrics
+```
+<script src="/path/to/ingest.js"></script>
+<script>document.addEventListener("DOMContentLoaded", fsdIngest('YOUR_CLIENT_ID'));</script>
+```
+
+### For logging events
+After you've called fsdIngest,
+```
+<script>document.addEventListener("DOMContentLoaded", fsdIngest('EVENT_NAME', 'EVENT_VALUE'));</script>
+```
+
+
 ## What analytics does it capture?
 ### Engagement Metrics
 - Active time spent by the user on a page
@@ -22,12 +36,6 @@ A tiny (4.6kb gzipped &amp; minified) JS library to capture analytics in the bro
 ### Referrer details
 
 ### Any other metrics you want to capture
-
-## Usage
-```
-<script src="/js/ingest.js"></script>
-<script>document.addEventListener("DOMContentLoaded", fsdIngest('loki_embed'));</script>
-```
 
 ## Comptability
 Works with all browsers that support [ES6](https://caniuse.com/?search=es6)
