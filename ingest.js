@@ -529,7 +529,8 @@ class FSDIngestor {
     this.activeLast7Days = null;
     this.timeSpent = null; //active time spent in seconds
     this.maxDepth = null; //maximum depth (in vertical page %) that the user scrolled to
-    this.events = {}; //key-value object of event names and values
+    this.eventCounts = {}; //key-value object of event names and values
+    this.eventNames = {}; //key-value object of event names and values
     this.source = getQueryParamValue("utm_source"); //equivalent of utm_source -- useful for measuring impact of a Call-to-Action or inline link
     this.campaign = getQueryParamValue("utm_campaign"); //equivalent of utm_campaign -- useful for measuring impact of a promotional campaign
     this.medium = getQueryParamValue("utm_medium"); //equivalent of utm_medium -- useful for understanding if users came from email, social media, or somewhere else
@@ -626,12 +627,13 @@ class FSDIngestor {
       } else {
         this.firstEverSession = false;
       }
-      if (sessionHitNum == null) {
-        numLifetimeSessions = parseInt(numLifetimeSessions) + 1;
-        sessionHitNum = 1;
-      } else {
-        sessionHitNum = parseInt(sessionHitNum) + 1;
-      }
+    }
+
+    if (sessionHitNum == null) {
+      numLifetimeSessions = parseInt(numLifetimeSessions) + 1;
+      sessionHitNum = 1;
+    } else {
+      sessionHitNum = parseInt(sessionHitNum) + 1;
     }
     
     this.numLifetimeSessions = numLifetimeSessions;
@@ -694,7 +696,12 @@ class FSDIngestor {
       activeLast24Hrs: this.activeLast24Hrs,
       activeLast7Days: this.activeLast7Days,
       timeSpent: this.timeSpent,
-      maxDepth: this.maxDepth
+      maxDepth: this.maxDepth,
+      eventCounts: this.eventCounts,
+      eventNames: this.eventNames,
+      source: this.source,
+      campaign: this.campaign,
+      medium: this.medium
     });
     
     if("sendBeacon" in navigator){
@@ -709,12 +716,24 @@ class FSDIngestor {
     console.log(payload);
   }
 
-  updateEvent(eventName, eventValue) {
-    this.events[eventName] = eventValue;
+  updateEventCounts(eventName) {
+    if (eventName in this.eventCounts) {
+      this.eventCounts[eventName] += 1;  
+    } else {
+      this.eventCounts[eventName] = 1;
+    }
+  }
+
+  updateEventNames(eventName, eventValue) {
+    if (eventName in this.eventNames) {
+      this.events[eventName].append(eventValue);
+    } else {
+      this.events[eventName] = [eventValue];
+    }
   }
 }
 
-let ingestor;
+let fsdIngestor;
 
 function fsdIngest(clientId) {
   /**
@@ -722,41 +741,45 @@ function fsdIngest(clientId) {
   */
 
   // First, initialize the ingestor
-  ingestor = new FSDIngestor(clientId);
+  fsdIngestor = new FSDIngestor(clientId);
   
   // then, set the user and session IDs
-  ingestor.setUserSessionId();
+  fsdIngestor.setUserSessionId();
 
   // then, set the referrer details
-  ingestor.setReferrerDetails();
+  fsdIngestor.setReferrerDetails();
 
   // then, calculate usage metrics
-  ingestor.setLongTermUsageMetrics();
+  fsdIngestor.setLongTermUsageMetrics();
   
   // send data to the server at first – just to make sure we don't lose data
-  ingestor.sendDataToServer();
+  fsdIngestor.sendDataToServer();
   
   // update engagement metrics every second. any more, and it'll impact performance
   window.setInterval(function() {
-    ingestor.updateEngagementMetrics();
+    fsdIngestor.updateEngagementMetrics();
   }, 1000);
 
   // any time there is a visibility change, send data to the server
   document.addEventListener('visibilitychange', function() {
     if (document.visibilityState === 'hidden') {
-      ingestor.sendDataToServer();
+      fsdIngestor.sendDataToServer();
     }
   });
 
   // Safari doesn't always play nice with visbility change. So adding another alternative here
   window.addEventListener("pagehide", function() {
-    ingestor.sendDataToServer();
+    fsdIngestor.sendDataToServer();
   });
 }
 
-function fsdAddEvent(eventName, eventValue) {
+function fsdUpdateEvent(eventName, eventValue, eventType) {
   /**
-   * adds the name and value of an event
+   * adds the name and value of an event to payload
    */
-  ingestor.updateEvent(eventName, eventValue);
+  if (eventType == "numeric") {
+    fsdIngestor.updateEventCounts(eventName);
+  } else if (eventType == "text") {
+    fsdIngestor.updateEventNames(eventName, eventValue);
+  }
 }
