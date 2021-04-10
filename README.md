@@ -1,5 +1,5 @@
 # browser-analytics-capture-js
-A tiny (4.6kb gzipped &amp; minified) JS library to capture analytics in the browser and send them to a server. An example of using Cloudflare Workers for processing this data and adding it to BigQuery has also been open-sourced [here](https://github.com/Full-Stack-Data/cloud-workers-bigquery-ingest).
+A tiny (4.9kb gzipped &amp; minified) JS library to capture analytics in the browser and send them to a server. An example of using Cloudflare Workers for processing this data and adding it to BigQuery has also been open-sourced [here](https://github.com/Full-Stack-Data/cloud-workers-bigquery-ingest).
 
 ## Usage
 ### For logging pageviews and engagement metrics
@@ -15,7 +15,7 @@ After you've called fsdIngest, for updating the count of numeric events
 <script>document.addEventListener("DOMContentLoaded", fsdUpdateEvent('EVENT_NAME'));</script> //
 ```
 
-
+For capturing text based events
 ```
 <script>document.addEventListener("DOMContentLoaded", fsdUpdateEvent('EVENT_NAME', 'EVENT_VALUE', 'text'));</script> //
 ```
