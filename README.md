@@ -9,9 +9,15 @@ A tiny (4.6kb gzipped &amp; minified) JS library to capture analytics in the bro
 ```
 
 ### For logging events
-After you've called fsdIngest,
+After you've called fsdIngest, for updating the count of numeric events
+
 ```
-<script>document.addEventListener("DOMContentLoaded", fsdIngest('EVENT_NAME', 'EVENT_VALUE'));</script>
+<script>document.addEventListener("DOMContentLoaded", fsdUpdateEvent('EVENT_NAME'));</script> //
+```
+
+
+```
+<script>document.addEventListener("DOMContentLoaded", fsdUpdateEvent('EVENT_NAME', 'EVENT_VALUE', 'text'));</script> //
 ```
 
 
